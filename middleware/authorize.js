@@ -2,9 +2,15 @@ const UnauthorizedError = require("../error/UnauthorizedError");
 const jwt = require("jsonwebtoken");
 const db = require("../models");
 
-const authorize = async (req, res, next) => {
-  const token = req.header("Token");
+const authorize = (req, res, next) => {
+  checker(req.header("Token"))
+    .then(next)
+    .catch((err) =>
+      res.status(401).json({ message: "Unauthorized. " + err.message })
+    );
+};
 
+async function checker(token) {
   if (!token) throw new UnauthorizedError("Please log in first.");
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -15,8 +21,6 @@ const authorize = async (req, res, next) => {
   if (!user) {
     throw new UnauthorizedError();
   }
-
-  next();
-};
+}
 
 module.exports = authorize;
