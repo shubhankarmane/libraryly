@@ -2,9 +2,10 @@ const express = require("express");
 const authorize = require("../../middleware/authorize");
 const router = express.Router();
 const rentalServices = require("../services/rentalServices");
+const checkPayment = require("../../middleware/checkPayment");
 
 // Routes
-router.post("/new", authorize, createRental);
+router.post("/new", authorize, checkPayment, createRental);
 router.put("/return", authorize, returnRental);
 router.get("/view/:id", authorize, getSingleRental);
 router.get("/view/all/open", authorize, getAllOpenRentals);

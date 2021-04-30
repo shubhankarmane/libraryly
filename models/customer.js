@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    LastPaymentDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   };
   const Customer = sequelize.define("Customer", attributes);
 

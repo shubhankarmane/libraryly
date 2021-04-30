@@ -25,6 +25,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      LastPaymentDate: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
       CreatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
