@@ -35,11 +35,11 @@ module.exports = {
       },
       DateRented: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       DateReturned: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       CreatedAt: {
         allowNull: false,

@@ -2,11 +2,11 @@ module.exports = (sequelize, DataTypes) => {
   const attributes = {
     DateRented: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     DateReturned: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
   };
 
