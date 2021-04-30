@@ -14,17 +14,16 @@ app.use(helmet());
 const user = require("./routes/controllers/userController");
 const customers = require("./routes/controllers/customerController");
 const books = require("./routes/controllers/bookController");
-
+const authors = require("./routes/controllers/authorController");
+const genres = require("./routes/controllers/genreController");
+const rentals = require("./routes/controllers/rentalController");
 // Use routes
 app.use("/api/users", user);
 app.use("/api/customers", customers);
 app.use("/api/books", books);
-
-/*
-TODO: Route for adding an author
-TODO: Route for adding a genre
-TODO: Route for the entire CRUD for rentals
-*/
+app.use("/api/authors", authors);
+app.use("/api/genres", genres);
+app.use("/api/rentals", rentals);
 
 // Global error handler
 app.use(errorHandler);

@@ -2,9 +2,15 @@ const db = require("../../models");
 
 module.exports = {
   create,
+  getAll,
   getById,
   updateBook,
 };
+
+async function getAll() {
+  const books = db.Book.findAll();
+  return books;
+}
 
 async function create({
   title,

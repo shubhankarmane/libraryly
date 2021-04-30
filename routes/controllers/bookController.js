@@ -5,6 +5,7 @@ const bookServices = require("../services/bookServices");
 
 // Routes
 router.post("/add", authorize, addBook);
+router.get("/view/all", authorize, getAll);
 router.get("/view/:id", authorize, getById);
 router.put("/update/:id", authorize, update);
 // TODO: Delete book
@@ -24,6 +25,13 @@ function getById(req, res, next) {
   bookServices
     .getById(req.params.id)
     .then((book) => res.json({ message: "Book found", book: book }))
+    .catch(next);
+}
+
+function getAll(req, res, next) {
+  bookServices
+    .getAll()
+    .then((books) => res.json({ books: books }))
     .catch(next);
 }
 
