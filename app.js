@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const errorHandler = require("./middleware/errorHandler");
 const db = require("./models");
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const helmet = require("helmet");
 
 app.use(express.json());
