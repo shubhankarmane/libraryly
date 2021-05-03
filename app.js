@@ -9,6 +9,10 @@ const helmet = require("helmet");
 app.use(express.json());
 app.use(helmet());
 
+// Remove later
+// const Cors = require("cors");
+// app.use(Cors());
+
 // Routes go here
 const user = require("./routes/controllers/userController");
 const customers = require("./routes/controllers/customerController");

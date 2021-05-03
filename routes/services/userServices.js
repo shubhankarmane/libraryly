@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const db = require("../../models");
 const bcrypt = require("bcrypt");
+const UnauthorizedError = require("../../error/UnauthorizedError");
 
 module.exports = {
   authenticate,
@@ -16,7 +17,8 @@ async function authenticate({ username, password }) {
 
   // if user was not found or the password did not match, we throw error
   if (!user || !(await bcrypt.compare(password, user.Password))) {
-    throw new Error("Username or password is incorrect");
+    // throw new UnauthorizedError("Username or password is incorrect");
+    throw new UnauthorizedError("Username or password is incorrect");
   }
 
   // authentication was successful and we can give a token
