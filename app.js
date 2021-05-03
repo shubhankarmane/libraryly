@@ -31,6 +31,10 @@ app.use("/api/genres", genres);
 app.use("/api/rentals", rentals);
 app.use("/api/subscription", subscription);
 
+app.get("/", (req, res) => {
+  return res.send("Hello");
+});
+
 // Global error handler
 app.use(errorHandler);
 db.sequelize.authenticate().then(() => {
