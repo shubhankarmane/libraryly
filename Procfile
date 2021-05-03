@@ -1,1 +1,1 @@
-web: export NODE_ENV=production && sequelize-cli db:migrate && sequelize-cli db:seed:all && node app
+web: export NODE_ENV=production && node app

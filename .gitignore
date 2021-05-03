@@ -129,6 +129,6 @@ tmp/
 temp/
 
 # Config file for sequelize
-/config
+# /config
 
 # End of https://www.toptal.com/developers/gitignore/api/node
