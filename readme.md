@@ -1,4 +1,4 @@
-## **Library Management System Backend**
+## **Libraryly**
 
 To run this project locally, make a clone of this repo, create a local MySQL database and set the following environment variables
 
