@@ -131,4 +131,6 @@ temp/
 # Config file for sequelize
 # /config
 
+.idea
+
 # End of https://www.toptal.com/developers/gitignore/api/node

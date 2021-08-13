@@ -9,11 +9,7 @@ const helmet = require("helmet");
 app.use(express.json());
 app.use(helmet());
 
-// Remove later
-// const Cors = require("cors");
-// app.use(Cors());
 
-// Routes go here
 const user = require("./routes/controllers/userController");
 const customers = require("./routes/controllers/customerController");
 const books = require("./routes/controllers/bookController");
@@ -22,7 +18,7 @@ const genres = require("./routes/controllers/genreController");
 const rentals = require("./routes/controllers/rentalController");
 const subscription = require("./routes/controllers/subscriptionController");
 
-// Use routes
+
 app.use("/api/users", user);
 app.use("/api/customers", customers);
 app.use("/api/books", books);
@@ -31,15 +27,9 @@ app.use("/api/genres", genres);
 app.use("/api/rentals", rentals);
 app.use("/api/subscription", subscription);
 
-app.get("/", (req, res) => {
-  return res.send("Hello");
-});
-
-// Global error handler
 app.use(errorHandler);
 db.sequelize.authenticate().then(() => {
   app.listen(port, () => {
-    console.log(`Mode: ${process.env.NODE_ENV}`);
     console.log(`Listening at: http://localhost:${port}`);
   });
 });

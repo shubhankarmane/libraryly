@@ -10,7 +10,8 @@ const errorHandler = (err, req, res, next) => {
     case err instanceof UnauthorizedError:
       return res.status(401).json({ message: err.message });
     default:
-      return res.status(500).json({ message: err.message });
+      console.log(err);
+      return res.status(500).json({ message: err });
   }
 };
 

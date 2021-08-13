@@ -1,23 +1,44 @@
 const express = require("express");
 const router = express.Router();
-const userServices = require("../services/userServices");
-
-// Routes handled by controller
-router.post("/authenticate", authenticate);
-router.post("/register", register);
+const lodash = require("lodash");
+const UnauthorizedError = require("../../error/UnauthorizedError");
+const db = require("../../models");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const wrapperFactory = require('../../middleware/wrapperFactory');
 
 module.exports = router;
 
-function authenticate(req, res, next) {
-  userServices
-    .authenticate(req.body)
-    .then((token) => res.json({ message: "Sign in successful", token: token }))
-    .catch(next);
+router.post("/authenticate", wrapperFactory(async (req, res) => {
+    // TODO: Input data validation
+    const input = getUserDetailsFromRequest(req);
+    const user = await getUserFromDBByUsername(input.username);
+    if (!user || !(await bcrypt.compare(input.password, user.Password))) {
+        throw new UnauthorizedError("Username or password is incorrect");
+    }
+    // adding id to the data of the token
+    const token = jwt.sign({data: user.dataValues.id}, process.env.JWT_SECRET);
+    res.json({message: "Sign in successful", token: token});
+
+}));
+
+router.post("/register", wrapperFactory(async (req, res) => {
+    const input = getUserDetailsFromRequest(req);
+    if (await getUserFromDBByUsername(input.username)) {
+        throw new Error("Username already taken!");
+    }
+    const hashedPassword = await bcrypt.hash(input.password, 5);
+    await db.User.create({UserName: input.username, Password: hashedPassword});
+}));
+
+function getUserDetailsFromRequest(req) {
+    return lodash.pick(req.body, ["username", "password"]);
 }
 
-function register(req, res, next) {
-  userServices
-    .create(req.body)
-    .then(() => res.json({ message: "User created successfully" }))
-    .catch(next);
+async function getUserFromDBByUsername(username) {
+    return await db.User.findOne({
+        where: {
+            UserName: username,
+        },
+    });
 }
