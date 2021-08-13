@@ -1,38 +1,32 @@
 module.exports = (sequelize, DataTypes) => {
   const attributes = {
-    FirstName: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    LastName: {
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Email: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Phone: {
+    phone: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    LastPaymentDate: {
+    lastPaymentDate: {
       type: DataTypes.DATE,
       allowNull: true,
     },
   };
-  const Customer = sequelize.define("Customer", attributes);
+  const customer = sequelize.define("customer", attributes);
 
-  Customer.associate = (models) => {
+  customer.associate = (models) => {
     // A customer has many rentals
-    Customer.hasMany(models.Rental, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+    customer.hasMany(models.rental);
   };
 
-  return Customer;
+  return customer;
 };

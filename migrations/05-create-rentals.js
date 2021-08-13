@@ -2,50 +2,50 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Rentals", {
-      Id: {
+    return queryInterface.createTable("rentals", {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      BookId: {
+      bookId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Books",
-          key: "Id",
-        },
-      },
-      CustomerId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "Customers",
-          key: "Id",
-        },
-      },
-      StatusId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "Statuses",
+          model: "books",
           key: "id",
         },
       },
-      DateRented: {
+      customerId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "customers",
+          key: "id",
+        },
+      },
+      statusId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "statuses",
+          key: "id",
+        },
+      },
+      dateRented: {
         type: Sequelize.DATE,
         allowNull: true,
       },
-      DateReturned: {
+      dateReturned: {
         type: Sequelize.DATE,
         allowNull: true,
       },
-      CreatedAt: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      UpdatedAt: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
@@ -53,6 +53,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Rentals");
+    return queryInterface.dropTable("rentals");
   },
 };

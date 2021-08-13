@@ -2,54 +2,54 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Books", {
-      Id: {
+    return queryInterface.createTable("books", {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      Title: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Stock: {
+      stock: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      ISBN: {
+      isbn: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      ImageURL: {
+      imageUrl: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      Pages: {
+      pages: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      AuthorId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: "Authors",
-          key: "Id",
-        },
-      },
-      GenreId: {
+      authorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Genres",
-          key: "Id",
+          model: "authors",
+          key: "id",
         },
       },
-      CreatedAt: {
+      genreId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "genres",
+          key: "id",
+        },
+      },
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      UpdatedAt: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
@@ -57,6 +57,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Books");
+    return queryInterface.dropTable("books");
   },
 };

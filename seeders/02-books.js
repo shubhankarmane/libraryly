@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      "Books",
+      "books",
       [
         {
           title: "Book One",
@@ -12,8 +12,8 @@ module.exports = {
           pages: 281,
           createdAt: new Date(),
           updatedAt: new Date(),
-          AuthorId: 1,
-          GenreId: 2,
+          authorId: 1,
+          genreId: 2,
         },
         {
           title: "Book Two",
@@ -22,8 +22,8 @@ module.exports = {
           pages: 231,
           createdAt: new Date(),
           updatedAt: new Date(),
-          AuthorId: 3,
-          GenreId: 6,
+          authorId: 3,
+          genreId: 6,
         },
       ],
       {}
@@ -31,6 +31,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Books", null, {});
+    return queryInterface.bulkDelete("books", null, {});
   },
 };

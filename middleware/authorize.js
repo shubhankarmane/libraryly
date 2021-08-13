@@ -16,7 +16,7 @@ async function checker(token) {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
   // check if the user id exists
-  const user = await db.User.findByPk(decoded.data);
+  const user = await db.user.findByPk(decoded.data);
 
   if (!user) {
     throw new UnauthorizedError();

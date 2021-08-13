@@ -1,22 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
   const attributes = {
-    Name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   };
 
-  const Genre = sequelize.define("Genre", attributes);
+  const genre = sequelize.define("genre", attributes);
 
-  Genre.associate = (models) => {
-    Genre.hasMany(models.Book, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+  genre.associate = (models) => {
+    genre.hasMany(models.book);
   };
 
-  return Genre;
+  return genre;
 };

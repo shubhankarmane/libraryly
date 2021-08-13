@@ -1,55 +1,37 @@
 module.exports = (sequelize, DataTypes) => {
   const attributes = {
-    Title: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Stock: {
+    stock: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    ISBN: {
+    isbn: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    ImageURL: {
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    Pages: {
+    pages: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   };
 
-  const Book = sequelize.define("Book", attributes);
+  const book = sequelize.define("book", attributes);
 
-  Book.associate = (models) => {
+  book.associate = (models) => {
     // A book has a genre
-    Book.belongsTo(models.Genre, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+    book.belongsTo(models.genre);
     // A book has an author
-    Book.belongsTo(models.Author, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+    book.belongsTo(models.author);
     // A book has many rentals
-    Book.hasMany(models.Rental, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+    book.hasMany(models.rental);
   };
 
-  return Book;
+  return book;
 };

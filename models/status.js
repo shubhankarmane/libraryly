@@ -1,23 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const attributes = {
-    Status: {
+    status: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   };
 
-  const Status = sequelize.define("Status", attributes);
+  const status = sequelize.define("status", attributes);
 
-  Status.associate = (models) => {
+  status.associate = (models) => {
     // A status applies to many rentals
-    Status.hasMany(models.Rental, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+    status.hasMany(models.rental);
   };
 
-  return Status;
+  return status;
 };

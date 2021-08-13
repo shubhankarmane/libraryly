@@ -2,38 +2,38 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Customers", {
-      Id: {
+    return queryInterface.createTable("customers", {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      FirstName: {
+      firstName: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      LastName: {
+      lastName: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Email: {
+      email: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      Phone: {
+      phone: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      LastPaymentDate: {
+      lastPaymentDate: {
         type: Sequelize.DATE,
         allowNull: true,
       },
-      CreatedAt: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      UpdatedAt: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
@@ -41,6 +41,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Customers");
+    return queryInterface.dropTable("customers");
   },
 };

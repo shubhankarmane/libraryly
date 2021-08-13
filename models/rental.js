@@ -1,45 +1,27 @@
 module.exports = (sequelize, DataTypes) => {
   const attributes = {
-    DateRented: {
+    dateRented: {
       type: DataTypes.DATE,
       allowNull: true,
     },
-    DateReturned: {
+    dateReturned: {
       type: DataTypes.DATE,
       allowNull: true,
     },
   };
 
-  const Rental = sequelize.define("Rental", attributes);
+  const rental = sequelize.define("rental", attributes);
 
-  Rental.associate = (models) => {
+  rental.associate = (models) => {
     // A customer can have many rentals
     // One rental can have only one customer
-    Rental.belongsTo(models.Customer, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+    rental.belongsTo(models.customer);
     // One book can be in many rentals
     // One rental can have only one book
-    Rental.belongsTo(models.Book, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+    rental.belongsTo(models.book);
     // A rental has a status
-    Rental.belongsTo(models.Status, {
-      foreignKey: {
-        allowNull: false,
-      },
-      onDelete: "RESTRICT",
-      onUpdate: "RESTRICT",
-    });
+    rental.belongsTo(models.status);
   };
 
-  return Rental;
+  return rental;
 };
