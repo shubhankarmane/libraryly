@@ -1,26 +1,17 @@
-const UnauthorizedError = require("../error/UnauthorizedError");
 const jwt = require("jsonwebtoken");
-const db = require("../models");
 
 const authorize = (req, res, next) => {
-    checker(req.header("Token"))
-        .then(next)
-        .catch((err) =>
-            res.status(401).json({message: "Unauthorized. " + err.message})
-        );
-};
-
-async function checker(token) {
-    if (!token) throw new UnauthorizedError("Please log in first.");
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // check if the user id exists
-    const user = await db.user.findByPk(decoded.data);
-
-    if (!user) {
-        throw new UnauthorizedError();
+    const token = req.header("auth-token");
+    if (!token) {
+        return res.status(401).send("Access denied. Please log in.");
     }
-}
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        next();
+    }
+    catch (err) {
+        return res.status(400).send("Invalid token");
+    }
+};
 
 module.exports = authorize;

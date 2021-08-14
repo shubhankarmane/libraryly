@@ -6,7 +6,7 @@ const wrapperFactory = require("../middleware/wrapperFactoryFunction");
 
 module.exports = router;
 
-router.put("/update", authorize, wrapperFactory(async (req, res) => {
+router.post("/update", authorize, wrapperFactory(async (req, res) => {
         const customer = await db.customer.findByPk(req.body.customerId);
         if (!customer) {
             return res.status(404).send("Customer not found");
