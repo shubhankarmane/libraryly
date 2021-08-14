@@ -1,16 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
-  const attributes = {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  };
+    const attributes = {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+    };
 
-  const genre = sequelize.define("genre", attributes);
+    const genre = sequelize.define("genre", attributes);
 
-  genre.associate = (models) => {
-    genre.hasMany(models.book);
-  };
+    genre.associate = (models) => {
+        genre.hasMany(models.book);
+    };
 
-  return genre;
+    return genre;
 };

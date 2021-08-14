@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const errorHandler = require("./middleware/errorHandler");
+const errorHandler = require("./middleware/globalErrorHandler");
 const db = require("./models");
 const port = process.env.PORT || 5000;
 const helmet = require("helmet");
@@ -29,7 +29,7 @@ app.use("/api/subscription", subscription);
 
 app.use(errorHandler);
 db.sequelize.authenticate().then(() => {
-  app.listen(port, () => {
-    console.log(`Listening at: http://localhost:${port}`);
-  });
+    app.listen(port, () => {
+        console.log(`Listening at: http://localhost:${port}`);
+    });
 });

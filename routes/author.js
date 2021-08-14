@@ -1,22 +1,20 @@
 const express = require("express");
-const authorize = require("../middleware/authorize");
 const router = express.Router();
 const db = require("../models");
 const lodash = require('lodash');
-const wrapperFactory = require("../middleware/wrapperfactoryfunction");
+const authorize = require("../middleware/authorize");
+const wrapperFactory = require("../middleware/wrapperFactoryFunction");
 
 module.exports = router;
 
-router.post("/add", authorize, wrapperFactory(async (req, res, next) => {
-
+router.post("/add", authorize, wrapperFactory(async (req, res) => {
     const input = getAuthorFromRequest(req);
     const author = await db.author.findOrCreate({
         where: {
             name: input.name,
         },
     });
-    res.json({message: "Author added successfully", author: author});
-
+    res.send(author);
 }));
 
 function getAuthorFromRequest(req) {

@@ -1,11 +1,12 @@
 ## **Libraryly**
 
-To run this project locally, make a clone of this repo, create a local MySQL database and set the following environment variables
+To run this project locally, make a clone of this repo, create a local MySQL database and set the following environment
+variables
 
-1.  JWT_SECRET
-2.  NOE_ENV
-3.  PROD_DATABASE_URL
-4.  DEV_DATABASE_URL
+1. JWT_SECRET
+2. NOE_ENV
+3. PROD_DATABASE_URL
+4. DEV_DATABASE_URL
 
 This project has been deployed at: https://shrouded-headland-49538.herokuapp.com/
 
