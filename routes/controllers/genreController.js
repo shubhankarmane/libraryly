@@ -1,18 +1,16 @@
 const express = require("express");
 const authorize = require("../../middleware/authorize");
 const router = express.Router();
-const genreServices = require("../services/genreServices");
+const wrapperFactory = require("../../middleware/wrapperFactory");
+const db = require("../../models");
 
-// Routes
-router.post("/add", authorize, addGenre);
+router.post("/add", authorize, wrapperFactory(async (req, res, next) => {
+    const genre = await db.genre.findOrCreate({
+        where: {
+            name: req.body.name,
+        },
+    });
+    return res.json({ message: "Genre added successfully", genre: genre });
+}));
 
 module.exports = router;
-
-function addGenre(req, res, next) {
-  genreServices
-    .addGenre(req.body)
-    .then((genre) => {
-      res.json({ message: "Genre added successfully", genre: genre });
-    })
-    .catch(next);
-}

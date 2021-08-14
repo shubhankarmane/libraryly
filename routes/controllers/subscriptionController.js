@@ -1,18 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const authorize = require("../../middleware/authorize");
-const subscriptionServices = require("../services/subscriptionServices");
+const wrapperFactory = require("../../middleware/wrapperFactory");
+const db = require("../../models");
 
-// Routes
-router.put("/payment/subscription/:id", authorize, processPayment);
+router.put("/payment/subscription/:id", authorize, wrapperFactory(async (req, res) => {
+        const customerId = req.params.id;
+        const customer = await db.customer.findByPk(customerId);
+        if (!customer) throw "Customer not found";
+        customer.lastPaymentDate = new Date();
+        await customer.save();
+        return res.json({message: "Subscription renewed", customer: customer});
+    }
+));
 
 module.exports = router;
-
-function processPayment(req, res, next) {
-  subscriptionServices
-    .processPayment(req.params.id)
-    .then((customer) =>
-      res.json({ message: "Subscription renewed", customer: customer })
-    )
-    .catch(next);
-}
