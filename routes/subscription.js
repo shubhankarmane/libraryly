@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const authorize = require("../../middleware/authorize");
-const wrapperFactory = require("../../middleware/wrapperFactory");
-const db = require("../../models");
+const authorize = require("../middleware/authorize");
+const wrapperFactory = require("../middleware/wrapperfactoryfunction");
+const db = require("../models");
 
 router.put("/payment/subscription/:id", authorize, wrapperFactory(async (req, res) => {
         const customerId = req.params.id;

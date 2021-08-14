@@ -10,13 +10,13 @@ app.use(express.json());
 app.use(helmet());
 
 
-const user = require("./routes/controllers/userController");
-const customers = require("./routes/controllers/customerController");
-const books = require("./routes/controllers/bookController");
-const authors = require("./routes/controllers/authorController");
-const genres = require("./routes/controllers/genreController");
-const rentals = require("./routes/controllers/rentalController");
-const subscription = require("./routes/controllers/subscriptionController");
+const user = require("./routes/user");
+const customers = require("./routes/customer");
+const books = require("./routes/book");
+const authors = require("./routes/author");
+const genres = require("./routes/genre");
+const rentals = require("./routes/rental");
+const subscription = require("./routes/subscription");
 
 
 app.use("/api/users", user);

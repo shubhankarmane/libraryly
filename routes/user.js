@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const lodash = require("lodash");
-const UnauthorizedError = require("../../error/UnauthorizedError");
-const db = require("../../models");
+const UnauthorizedError = require("../error/UnauthorizedError");
+const db = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const wrapperFactory = require('../../middleware/wrapperFactory');
+const wrapperFactory = require('../middleware/wrapperfactoryfunction');
 
 module.exports = router;
 

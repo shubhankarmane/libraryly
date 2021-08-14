@@ -1,9 +1,9 @@
 const express = require("express");
-const authorize = require("../../middleware/authorize");
+const authorize = require("../middleware/authorize");
 const router = express.Router();
-const db = require("../../models");
+const db = require("../models");
 const lodash = require('lodash');
-const wrapperFactory = require("../../middleware/wrapperFactory");
+const wrapperFactory = require("../middleware/wrapperfactoryfunction");
 
 module.exports = router;
 
