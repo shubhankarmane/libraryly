@@ -4,11 +4,17 @@ const lodash = require("lodash");
 const db = require("../models");
 const authorize = require("../middleware/authorize");
 const wrapperFactory = require("../middleware/wrapperFactoryFunction");
+const validate = require("../validation/customerValidator");
 
 module.exports = router;
 
 router.post("/register", authorize, wrapperFactory(async (req, res) => {
     const input = getCustomerFromRequest(req);
+    const validationResult = validate(input);
+    if(validationResult.error) {
+        let errorMessage = validationResult.error.details.map(detail => detail.message).toString();
+        return res.status(400).send(errorMessage);
+    }
     const customer = await db.customer.create({
         firstName: input.firstName,
         lastName: input.lastName,
@@ -31,8 +37,12 @@ router.put("/update/:id", authorize, wrapperFactory(async (req, res) => {
     if (!customer) {
         return res.status(404).send("Customer not found");
     }
-
     const input = getCustomerFromRequest(req);
+    const validationResult = validate(input);
+    if(validationResult.error) {
+        let errorMessage = validationResult.error.details.map(detail => detail.message).toString();
+        return res.status(400).send(errorMessage);
+    }
     customer.firstName = input.firstName;
     customer.lastName = input.lastName;
     customer.email = input.email;

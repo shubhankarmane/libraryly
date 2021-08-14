@@ -4,11 +4,17 @@ const lodash = require('lodash');
 const db = require("../models");
 const authorize = require("../middleware/authorize");
 const wrapperFactory = require("../middleware/wrapperFactoryFunction");
+const validate = require("../validation/bookValidator");
 
 module.exports = router;
 
 router.post("/add", authorize, wrapperFactory(async (req, res) => {
     const input = getBookDetailsFromRequest(req);
+    const validationResult = validate(input);
+    if(validationResult.error) {
+        let errorMessage = validationResult.error.details.map(detail => detail.message).toString();
+        return res.status(400).send(errorMessage);
+    }
     const book = await db.book.create({
         title: input.title,
         stock: input.stock,
@@ -36,6 +42,11 @@ router.get("/view/:id", authorize, wrapperFactory(async (req, res) => {
 
 router.put("/update/:id", authorize, wrapperFactory(async (req, res) => {
     const input = getBookDetailsFromRequest(req);
+    const validationResult = validate(input);
+    if(validationResult.error) {
+        let errorMessage = validationResult.error.details.map(detail => detail.message).toString();
+        return res.status(400).send(errorMessage);
+    }
     const book = await db.book.findByPk(req.params.id);
     if (!book) {
         return res.status(404).send("Book not found");

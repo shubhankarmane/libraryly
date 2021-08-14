@@ -4,10 +4,16 @@ const db = require("../models");
 const wrapperFactory = require("../middleware/wrapperFactoryFunction");
 const checkPayment = require("../middleware/checkPayment");
 const authorize = require("../middleware/authorize");
+const validate = require("../validation/rentalValidator");
 
 module.exports = router;
 
 router.post("/create", authorize, checkPayment, wrapperFactory(async (req, res) => {
+    const validationResult = validate(req.body);
+    if(validationResult.error) {
+        let errorMessage = validationResult.error.details.map(detail => detail.message).toString();
+        return res.status(400).send(errorMessage);
+    }
     const existingRentals = await db.rental.count({
         where: {
             customerId: req.body.customerId,
@@ -24,6 +30,11 @@ router.post("/create", authorize, checkPayment, wrapperFactory(async (req, res) 
 }));
 
 router.post("/return", authorize, wrapperFactory(async (req, res) => {
+    const validationResult = validate(req.body);
+    if(validationResult.error) {
+        let errorMessage = validationResult.error.details.map(detail => detail.message).toString();
+        return res.status(400).send(errorMessage);
+    }
     const rental = await db.rental.findOne({
         where: {
             customerId: req.body.customerId,
