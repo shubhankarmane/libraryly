@@ -1,9 +1,3 @@
-// this middleware function checks if a user has paid the monthly fees or not
-// const db = require("../models");
-
-const {PrismaClient} = require("@prisma/client");
-const prisma = new PrismaClient();
-
 const checkPaymentStatus = (req, res, next) => {
     checkSubscription(req.body.customerId)
         .then(next)

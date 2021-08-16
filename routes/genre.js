@@ -1,12 +1,7 @@
-const express = require("express");
-const router = express.Router();
-// const db = require("../models");
+const router = require("express").Router();
 const authorize = require("../middleware/authorize");
 const wrapperFactory = require("../middleware/wrapperFactoryFunction");
 const validate = require("../validation/genreValidator");
-
-const {PrismaClient} = require("@prisma/client");
-const prisma = new PrismaClient();
 
 router.post("/", authorize, wrapperFactory(async (req, res) => {
     const validationResult = validate(req.body);
@@ -14,12 +9,6 @@ router.post("/", authorize, wrapperFactory(async (req, res) => {
         let errorMessage = validationResult.error.details.map(detail => detail.message).toString();
         return res.status(400).send(errorMessage);
     }
-
-    // const genre = await db.genre.findOrCreate({
-    //     where: {
-    //         name: req.body.name,
-    //     },
-    // });
 
     const genre = await prisma.genres.create({
         data: {
