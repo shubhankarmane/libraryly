@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "./src/generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model authors {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  books     books[]
+}
+
+model books {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.VarChar(255)
+  stock     Int
+  isbn      String    @db.VarChar(13)
+  imageUrl  String?   @db.VarChar(255)
+  pages     Int
+  authorId  Int
+  genreId   Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  authors   authors   @relation(fields: [authorId], references: [id])
+  genres    genres    @relation(fields: [genreId], references: [id])
+  rentals   rentals[]
+
+  @@index([authorId], name: "books_ibfk_1")
+  @@index([genreId], name: "books_ibfk_2")
+}
+
+model customers {
+  id              Int       @id @default(autoincrement())
+  firstName       String    @db.VarChar(255)
+  lastName        String    @db.VarChar(255)
+  email           String    @db.VarChar(255)
+  phone           String    @db.VarChar(10)
+  lastPaymentDate DateTime? @db.DateTime(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  rentals         rentals[]
+}
+
+model genres {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  books     books[]
+}
+
+model rentals {
+  id           Int       @id @default(autoincrement())
+  bookId       Int
+  customerId   Int
+  statusId     Int
+  dateRented   DateTime? @db.DateTime(0)
+  dateReturned DateTime? @db.DateTime(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  books        books     @relation(fields: [bookId], references: [id])
+  customers    customers @relation(fields: [customerId], references: [id])
+  statuses     statuses  @relation(fields: [statusId], references: [id])
+
+  @@index([bookId], name: "rentals_ibfk_1")
+  @@index([customerId], name: "rentals_ibfk_2")
+  @@index([statusId], name: "rentals_ibfk_3")
+}
+
+model statuses {
+  id        Int       @id @default(autoincrement())
+  status    String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  rentals   rentals[]
+}
+
+model users {
+  id        Int      @id @default(autoincrement())
+  userName  String   @db.VarChar(255) @unique
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

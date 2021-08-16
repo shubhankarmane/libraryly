@@ -4,8 +4,8 @@ function validateBook(book) {
     const schema = Joi.object({
         title: Joi.string().required().min(1).max(255),
         stock: Joi.number().required().min(1).max(300),
-        isbn: Joi.number().required().min(13).max(13),
-        imageUrl: Joi.string().max(255),
+        isbn: Joi.string().required().min(13).max(13),
+        imageUrl: Joi.string(),
         pages: Joi.number().required().min(1).max(10000),
         authorId: Joi.number().required(),
         genreId: Joi.number().required()
