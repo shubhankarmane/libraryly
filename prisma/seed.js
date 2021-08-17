@@ -1,9 +1,9 @@
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
-const authors = require('./authors');
-const books = require('./books');
-const statuses = require('./statuses');
-const genres = require('./genres');
+const authors = require('../seeder-data/authors');
+const books = require('../seeder-data/books');
+const statuses = require('../seeder-data/statuses');
+const genres = require('../seeder-data/genres');
 
 async function main() {
     for (let author of authors) {
