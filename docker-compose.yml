@@ -20,7 +20,6 @@ services:
     build: .
     ports:
       - "5000:5000"
-      - "5555:5555"
     environment:
       JWT_SECRET: fruit
 #      DATABASE_URL: mysql://root:root@db:3306/libraryly
