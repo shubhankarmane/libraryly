@@ -15,13 +15,14 @@ router.post("/", authorize, wrapperFactory(async (req, res) => {
     }
 
     const customer = await prisma.customers.create({
-        data: {
-            firstName: input.firstName,
-            lastName: input.lastName,
-            email: input.email,
-            phone: input.phone
+            data: {
+                firstName: input.firstName,
+                lastName: input.lastName,
+                email: input.email,
+                phone: input.phone
+            },
         }
-    });
+    );
 
     return res.send(customer);
 }));
