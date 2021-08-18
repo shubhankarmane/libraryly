@@ -13,4 +13,7 @@ Steps to run:
 
     [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/ac65a435a35f4473922f?action=collection%2Fimport)
 
-Or run through docker by running these commands on the terminal:<pre><code>docker pull shubhankarmane/libraryly <br>docker run 5811</code></pre>
+Or run through docker by running these commands on the terminal:
+<pre><code>docker pull shubhankarmane/libraryly</code></pre>
+
+<pre><code>docker run 5811</code></pre>
