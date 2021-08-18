@@ -17,7 +17,7 @@ router.post("/authenticate", wrapperFactory(async (req, res) => {
     }
 
     const user = await prisma.users.findFirst({where:{userName: input.userName}});
-    console.log(user);
+    
     if (!user || !(await bcrypt.compare(input.password, user.password))) {
         return res.status(401).send("Incorrect username or password");
     }
