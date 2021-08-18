@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
-const { PrismaClient } = require('./prisma-generated-clients/src/generated/client');
+const { PrismaClient } = require('./src/generated/client');
 
 require('./startup/catchers')();
 require('./startup/routes')(app);

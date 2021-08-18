@@ -1,3 +1,5 @@
 node_modules
 prisma-generated-clients
 .idea
+prisma/ libraryly.db
+src
